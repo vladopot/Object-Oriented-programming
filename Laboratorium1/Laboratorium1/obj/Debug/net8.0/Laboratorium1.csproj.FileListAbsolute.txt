@@ -1,0 +1,14 @@
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\bin\Debug\net8.0\Laboratorium1.exe
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\bin\Debug\net8.0\Laboratorium1.deps.json
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\bin\Debug\net8.0\Laboratorium1.runtimeconfig.json
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\bin\Debug\net8.0\Laboratorium1.dll
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\bin\Debug\net8.0\Laboratorium1.pdb
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.AssemblyInfoInputs.cache
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.AssemblyInfo.cs
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.csproj.CoreCompileInputs.cache
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.dll
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\refint\Laboratorium1.dll
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.pdb
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\Laboratorium1.genruntimeconfig.cache
+C:\Users\w71048\source\repos\Laboratorium1\Laboratorium1\obj\Debug\net8.0\ref\Laboratorium1.dll
