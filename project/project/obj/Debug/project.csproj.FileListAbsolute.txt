@@ -1,0 +1,15 @@
+C:\Object-Oriented-programming\project\project\bin\Debug\project.exe.config
+C:\Object-Oriented-programming\project\project\bin\Debug\project.exe
+C:\Object-Oriented-programming\project\project\bin\Debug\project.pdb
+C:\Object-Oriented-programming\project\project\obj\Debug\project.csproj.AssemblyReference.cache
+C:\Object-Oriented-programming\project\project\obj\Debug\MainWindow.g.cs
+C:\Object-Oriented-programming\project\project\obj\Debug\App.g.cs
+C:\Object-Oriented-programming\project\project\obj\Debug\project_MarkupCompile.cache
+C:\Object-Oriented-programming\project\project\obj\Debug\project_MarkupCompile.lref
+C:\Object-Oriented-programming\project\project\obj\Debug\MainWindow.baml
+C:\Object-Oriented-programming\project\project\obj\Debug\project.g.resources
+C:\Object-Oriented-programming\project\project\obj\Debug\project.Properties.Resources.resources
+C:\Object-Oriented-programming\project\project\obj\Debug\project.csproj.GenerateResource.cache
+C:\Object-Oriented-programming\project\project\obj\Debug\project.csproj.CoreCompileInputs.cache
+C:\Object-Oriented-programming\project\project\obj\Debug\project.exe
+C:\Object-Oriented-programming\project\project\obj\Debug\project.pdb
