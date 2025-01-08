@@ -40,7 +40,8 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
+                        <Border x:Name="ButtonBorder"
+                        Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}" 
                         CornerRadius="7">
@@ -48,14 +49,43 @@
                                       VerticalAlignment="Center"
                                       Content="{TemplateBinding Content}"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="ButtonBorder"
+                                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                    To="Gray"
+                                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <ColorAnimation Storyboard.TargetName="ButtonBorder"
+                                                    Storyboard.TargetProperty="(Background).(SolidColorBrush.Color)"
+                                                    To="LightGray"
+                                                    Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
     </Window.Resources>
-    <Grid>
-        <TextBox Style="{StaticResource TextBoxStyle}" x:Name="userNameInput" Width="350" Height="40" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBox>
-        <TextBox Style="{StaticResource TextBoxStyle}" x:Name="userPasswordInput" Width="350" Height="40" HorizontalAlignment="Right" Margin="0,100,20,0"></TextBox>
-        <Button Style="{StaticResource BtnStyle}" x:Name="joinBtn" Content="Join" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100" Height="40" FontSize="16" Margin="0,250,100,0"></Button>
-    </Grid>
+    <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden">
+        <Frame.Content>
+            <Grid>
+                <TextBox Style="{StaticResource TextBoxStyle}" x:Name="userNameInput" Width="350" Height="40" HorizontalAlignment="Right" Margin="0,0,20,0"></TextBox>
+                <TextBox Style="{StaticResource TextBoxStyle}" x:Name="userPasswordInput" Width="350" Height="40" HorizontalAlignment="Right" Margin="0,100,20,0"></TextBox>
+                <Button Click="Join" Style="{StaticResource BtnStyle}" x:Name="joinBtn" Content="Join" HorizontalAlignment="Right" VerticalAlignment="Center" Width="100" Height="40" FontSize="16" Margin="0,250,100,0"></Button>
+            </Grid>
+        </Frame.Content>
+        </Frame>
 </Window>

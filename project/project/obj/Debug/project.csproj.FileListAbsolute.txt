@@ -13,3 +13,5 @@ C:\Object-Oriented-programming\project\project\obj\Debug\project.csproj.Generate
 C:\Object-Oriented-programming\project\project\obj\Debug\project.csproj.CoreCompileInputs.cache
 C:\Object-Oriented-programming\project\project\obj\Debug\project.exe
 C:\Object-Oriented-programming\project\project\obj\Debug\project.pdb
+C:\Object-Oriented-programming\project\project\obj\Debug\ProfilePage.g.cs
+C:\Object-Oriented-programming\project\project\obj\Debug\ProfilePage.baml

@@ -16,20 +16,18 @@ using System.Windows.Shapes;
 namespace project
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ProfilePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class ProfilePage : Page
     {
-        public MainWindow()
+        public ProfilePage()
         {
             InitializeComponent();
         }
 
-        private void Join(object sender, RoutedEventArgs e)
+        private void NavigateTo(object Sender, RoutedEventArgs e)
         {
-            ProfilePage profilePage = new ProfilePage();
-
-            MainFrame.Navigate(profilePage);
+            NavigationService.GoBack();
         }
     }
 }
