@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProfilePage">
     <Page.Background>
-        <SolidColorBrush Color="#4B0082"/>
+        <ImageBrush ImageSource="Resources/Background.jpg"></ImageBrush>
     </Page.Background>
     <Page.Resources>
         <Style x:Key="BtnStyle" TargetType="Button">
@@ -58,6 +58,14 @@
         </Style>
     </Page.Resources>
     <Grid>
-        <Button Click="NavigateTo" Style="{StaticResource BtnStyle}" x:Name="joinBtn" Content="Exit" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="60" Height="50" FontSize="16" Margin="0,0,100,0"></Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Image x:Name="userPhoto" HorizontalAlignment="Stretch" Grid.Column="0"></Image>
+        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="analyzBtn" Content="analyz" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="60" FontSize="16" Margin="0,130,0,0"></Button>
+        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="addTrainBtn" Content="AddTrain" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="60" FontSize="16" Margin="0,190,0,0"></Button>
+        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="plansBtn" Content="Plans" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="60" FontSize="16" Margin="0,250,0,0"></Button>
+        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="joinBtn" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="60" FontSize="16" Margin="0,310,0,0"></Button>
     </Grid>
 </Page>

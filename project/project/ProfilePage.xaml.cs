@@ -20,8 +20,10 @@ namespace project
     /// </summary>
     public partial class ProfilePage : Page
     {
-        public ProfilePage()
+        private int userId {  get; set; }
+        public ProfilePage(int userId)
         {
+            this.userId = userId;
             InitializeComponent();
         }
 
