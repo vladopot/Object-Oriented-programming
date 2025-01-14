@@ -15,16 +15,15 @@ using System.Windows.Shapes;
 using System.Data.SQLite;
 using System.IO;
 using System.Xml.Linq;
+using System.IO.Packaging;
+using System.Runtime.Remoting.Messaging;
 
 namespace project
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private int Id { get; set; }
-        private string DBPath = "users.db";
+        private string DBPath = "Users.db";
         public MainWindow()
         {
             InitializeComponent();
@@ -35,72 +34,87 @@ namespace project
             string userName = userNameInput.Text;
             string userPassword = userPasswordInput.Text;
 
-            if (userName == null || userPassword == null) { return; }
+            if (String.IsNullOrWhiteSpace(userName) || String.IsNullOrWhiteSpace(userPassword)) { return; }
 
             if (!File.Exists(DBPath))
             {
                 this.CreateDB();
             }
-            using (var DbConnection = new SQLiteConnection($"Data Source={DBPath};Version=3"))
-            {
-                DbConnection.Open();
+            string fullPath = System.IO.Path.GetFullPath(DBPath);
+            Console.WriteLine(fullPath);
+            checkPass(userName, userPassword);
 
-                string userSearchString = "SELECT Id FROM Users WHERE Username=@userNameToCheck";
-
-                using (var command = new SQLiteCommand(userSearchString, DbConnection))
-                {
-                    command.Parameters.AddWithValue("@userNameToCheck", userName);
-
-                    using (var reader = command.ExecuteReader()) {
-                        if (reader.Read())
-                        {
-                            this.Id = reader.GetInt32(0);
-                        }
-                        else
-                        {
-                            string addString = "INSERT INTO Users(Username, PasswordHash, Email) VALUES(@name, @pass)";
-                            using (var commandToAddString = new SQLiteCommand(addString, DbConnection))
-                            {
-                                commandToAddString.Parameters.AddWithValue("@name", userName);
-                                commandToAddString.Parameters.AddWithValue("@pass", userPassword);
-                                try 
-                                {
-                                    commandToAddString.ExecuteNonQuery();
-                                }
-                                catch 
-                                {
-                                    Console.WriteLine("Error");
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
             ProfilePage profilePage = new ProfilePage(this.Id);
 
             MainFrame.Navigate(profilePage);
         }
 
+        private void checkPass(string userName, string userPassword)
+        {
+            using (var DbConnection = new SQLiteConnection($"Data Source={DBPath}"))
+            {
+                DbConnection.Open();
+
+                string userSearchString = "SELECT Id, PasswordHash FROM Users WHERE Username = @userNameToCheck";
+
+                using (var command = new SQLiteCommand(userSearchString, DbConnection))
+                {
+                    command.Parameters.AddWithValue("@userNameToCheck", userName);
+                    using (var reader = command.ExecuteReader())
+                    {
+                            if (reader.Read())
+                            {
+                                if (reader.GetString(1) == userPassword)
+                                {
+                                    this.Id = reader.GetInt32(0);
+                                    Console.WriteLine(this.Id);
+                                }
+                            }
+                            else
+                            {
+                                string addString = "INSERT INTO Users(Username, PasswordHash) VALUES(@name, @pass)";
+                                using (var commandToAddString = new SQLiteCommand(addString, DbConnection))
+                                {
+                                    commandToAddString.Parameters.AddWithValue("@name", userName);
+                                    commandToAddString.Parameters.AddWithValue("@pass", userPassword);
+                                    try
+                                    {
+                                        commandToAddString.ExecuteNonQuery();
+                                        checkPass(userName, userPassword);
+                                        Console.WriteLine(this.Id);
+                                    }
+                                    catch
+                                    {
+                                        Console.WriteLine("Error");
+                                    }
+                                }
+                            }
+                    }
+                }
+            }
+        }
+
         private void CreateDB()
         {
-            using (var db = new SQLiteConnection($"Data Source={DBPath};Version=3"))
+            using (var db = new SQLiteConnection($"Data Source={DBPath}"))
             {
                 db.Open();
 
-                string createTable = @"
-                CREATE TABLE Users (
-                    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    Username TEXT NOT NULL UNIQUE,
-                    PasswordHash TEXT NOT NULL
-                );";
-
-                using (var command = new SQLiteCommand(createTable, db))
+                string checkTableExists = "SELECT name FROM sqlite_master WHERE type='table' AND name='Users';";
+                using (var command = new SQLiteCommand(checkTableExists, db))
                 {
-                    command.ExecuteNonQuery();
+                    var result = command.ExecuteScalar();
+                    if (result == null)
+                    {
+                        string createTable = "CREATE TABLE IF NOT EXISTS Users (Id INTEGER PRIMARY KEY AUTOINCREMENT,Username TEXT NOT NULL UNIQUE,PasswordHash TEXT NOT NULL);";
+                        using (var createCommand = new SQLiteCommand(createTable, db))
+                        {
+                            createCommand.ExecuteNonQuery();
+                        }
+                    }
                 }
-
             }
         }
+
     }
 }
