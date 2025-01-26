@@ -24,3 +24,5 @@ C:\Object-Oriented-programming\project\project\bin\Debug\EntityFramework.xml
 C:\Object-Oriented-programming\project\project\bin\Debug\EntityFramework.SqlServer.xml
 C:\Object-Oriented-programming\project\project\bin\Debug\System.Data.SQLite.xml
 C:\Object-Oriented-programming\project\project\obj\Debug\project.csproj.Up2Date
+C:\Object-Oriented-programming\project\project\obj\Debug\Trainings.g.cs
+C:\Object-Oriented-programming\project\project\obj\Debug\Trainings.baml

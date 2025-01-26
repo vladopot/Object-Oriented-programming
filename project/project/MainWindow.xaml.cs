@@ -42,14 +42,22 @@ namespace project
             }
             string fullPath = System.IO.Path.GetFullPath(DBPath);
             Console.WriteLine(fullPath);
-            checkPass(userName, userPassword);
+            bool userChecked = checkPass(userName, userPassword);
 
-            ProfilePage profilePage = new ProfilePage(this.Id);
+            if (userChecked)
+            {
+                ProfilePage profilePage = new ProfilePage(this.Id);
 
-            MainFrame.Navigate(profilePage);
+                MainFrame.Navigate(profilePage);
+            }
+            else
+            {
+                MessageBox.Show("Invalid password");
+            }
+
         }
 
-        private void checkPass(string userName, string userPassword)
+        private bool checkPass(string userName, string userPassword)
         {
             using (var DbConnection = new SQLiteConnection($"Data Source={DBPath}"))
             {
@@ -62,33 +70,39 @@ namespace project
                     command.Parameters.AddWithValue("@userNameToCheck", userName);
                     using (var reader = command.ExecuteReader())
                     {
-                            if (reader.Read())
+                        if (reader.Read())
+                        {
+                            if (reader.GetString(1) == userPassword)
                             {
-                                if (reader.GetString(1) == userPassword)
+                                this.Id = reader.GetInt32(0);
+                                return true;
+                            }
+                            return false;
+                        }
+                        else
+                        {
+                            string addString = "INSERT INTO Users(Username, PasswordHash) VALUES(@name, @pass)";
+                            using (var commandToAddString = new SQLiteCommand(addString, DbConnection))
+                            {
+                                commandToAddString.Parameters.AddWithValue("@name", userName);
+                                commandToAddString.Parameters.AddWithValue("@pass", userPassword);
+                                try
                                 {
-                                    this.Id = reader.GetInt32(0);
-                                    Console.WriteLine(this.Id);
+                                    commandToAddString.ExecuteNonQuery();
+                                    
+                                    SQLiteCommand sQLiteCommand = new SQLiteCommand("SELECT last_insert_rowid()", DbConnection);
+
+                                    this.Id = Convert.ToInt32(sQLiteCommand.ExecuteScalar());
+
+                                    return true;
+                                }
+                                catch
+                                {
+                                    Console.WriteLine("Error");
+                                    return false;
                                 }
                             }
-                            else
-                            {
-                                string addString = "INSERT INTO Users(Username, PasswordHash) VALUES(@name, @pass)";
-                                using (var commandToAddString = new SQLiteCommand(addString, DbConnection))
-                                {
-                                    commandToAddString.Parameters.AddWithValue("@name", userName);
-                                    commandToAddString.Parameters.AddWithValue("@pass", userPassword);
-                                    try
-                                    {
-                                        commandToAddString.ExecuteNonQuery();
-                                        checkPass(userName, userPassword);
-                                        Console.WriteLine(this.Id);
-                                    }
-                                    catch
-                                    {
-                                        Console.WriteLine("Error");
-                                    }
-                                }
-                            }
+                        }
                     }
                 }
             }
