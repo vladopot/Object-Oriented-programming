@@ -63,8 +63,7 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <TextBlock x:Name="TextBlock" Text="Loading..." FontSize="24" Foreground="White" Grid.Column="0" Margin="40,50,0,0"></TextBlock>
-        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="analyzBtn" Content="analyz" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,180"></Button>
-        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="addTrainBtn" Content="AddTrain" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,120"></Button>
+        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="analyzBtn" Content="analyz" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,120"></Button>
         <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="plansBtn" Content="Plans" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,60"></Button>
         <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="exitBtn" IsCancel="True" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,0"></Button>
 

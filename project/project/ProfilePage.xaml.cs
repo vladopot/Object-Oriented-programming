@@ -45,9 +45,9 @@ namespace project
             string btnName = clickedBtn.Name;
             switch (btnName)
             {
-                case "addTrainBtn":
-                    Trainings trainings = new Trainings();
-                    NavigationService.Navigate(trainings);
+                case "plansBtn":
+                    Plans PlansPage = new Plans(this.userId);
+                    NavigationService.Navigate(PlansPage);
                     break;
                 case "exitBtn":
                     NavigationService.GoBack();
