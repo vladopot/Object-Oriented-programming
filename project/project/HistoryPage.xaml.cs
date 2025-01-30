@@ -120,13 +120,17 @@ namespace project
             string btnName = clickedBtn.Name;
             switch (btnName)
             {
-                case "addTrainBtn":
+                case "plansBtn":
                     Plans PlansPage = new Plans(this.userId);
                     NavigationService.Navigate(PlansPage);
                     break;
                 case "HistoryBtn":
                     HistoryPage historyPage = new HistoryPage(this.userId);
                     NavigationService.Navigate(historyPage);
+                    break;
+                case "AnalyzBtn":
+                    AnalizPage analizPage = new AnalizPage(this.userId);
+                    NavigationService.Navigate(analizPage);
                     break;
                 case "exitBtn":
                     NavigationService.GoBack();

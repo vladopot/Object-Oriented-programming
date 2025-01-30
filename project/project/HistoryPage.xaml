@@ -65,7 +65,10 @@
             </Grid.ColumnDefinitions>
             <StackPanel x:Name="ContentStackPanel" Grid.Column="1" VerticalAlignment="Top">
             </StackPanel>
-            <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="exitBtn" IsCancel="True" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,0"></Button>
+            <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="HistoryBtn" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,180"></Button>
+            <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="AnalyzBtn" Content="Analyz" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,120"></Button>
+            <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="plansBtn" Content="Plans" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,60"></Button>
+            <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="exitBtn" IsCancel="True" Content="Back" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,0"></Button>
         </Grid>
     </Grid>
 </Page>

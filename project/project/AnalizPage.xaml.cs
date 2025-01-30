@@ -3,19 +3,23 @@ using System.Data.SQLite;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace project
 {
+
     public partial class AnalizPage : Page
     {
+        private double scale = 1.0;
         private int userId { get; set; }
         private string DBPath = "Users.db";
         public AnalizPage(int userId)
         {
             InitializeComponent();
             this.userId = userId;
+            this.MouseWheel += AnalizPage_MouseWheel;
             GetDatas();
         }
 
@@ -74,7 +78,7 @@ namespace project
                     calories += 800;
                     break;
                 case "Lose Weight":
-                    calories -= 800;
+                    calories -= 300;
                     break;
             }
 
@@ -94,6 +98,18 @@ namespace project
         private double CalculateBMR(double weight, double height, int age)
         {
             return 10 * weight + 6.25 * height - 5 * age + 5;
+        }
+
+        private void AnalizPage_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (e.Delta > 0)
+                scale *= 1.1;
+            else
+                scale /= 1.1;
+
+            scale = Math.Max(0.5, Math.Min(scale, 3.0));
+
+            DrawWeightChart(initialWeight: double.Parse(WeightTextBox.Text), goal: GoalComboBox.Text);
         }
 
         private void DrawWeightChart(double initialWeight, string goal)
@@ -126,9 +142,25 @@ namespace project
             ChartCanvas.Children.Add(xAxis);
             ChartCanvas.Children.Add(yAxis);
 
+            double yStep = canvasHeight / 10;
+            for (int i = 0; i <= 10; i++)
+            {
+                double yValue = i * 15;
+                double y = canvasHeight - (yValue / 150 * canvasHeight);
+
+                TextBlock yLabel = new TextBlock
+                {
+                    Text = yValue.ToString(),
+                    Foreground = Brushes.White,
+                    Margin = new Thickness(-30, y - 10, 0, 0)
+                };
+
+                ChartCanvas.Children.Add(yLabel);
+            }
+
             double currentWeight = initialWeight;
             double weightChangePerWeek = goal == "Gain Weight" ? 1.0 : (goal == "Lose Weight" ? -1.0 : 0);
-            double xStep = canvasWidth / 12;
+            double xStep = (canvasWidth / 12) * scale;
 
             for (int i = 0; i < 12; i++)
             {
@@ -137,10 +169,10 @@ namespace project
 
                 var point = new Ellipse
                 {
-                    Width = 5,
-                    Height = 5,
+                    Width = 5 * scale,
+                    Height = 5 * scale,
                     Fill = Brushes.Red,
-                    Margin = new Thickness(x - 2.5, y - 2.5, 0, 0)
+                    Margin = new Thickness(x - (2.5 * scale), y - (2.5 * scale), 0, 0)
                 };
 
                 ChartCanvas.Children.Add(point);
@@ -154,7 +186,7 @@ namespace project
                         X2 = x,
                         Y2 = y,
                         Stroke = Brushes.Blue,
-                        StrokeThickness = 2
+                        StrokeThickness = 2 * scale
                     };
 
                     ChartCanvas.Children.Add(line);
