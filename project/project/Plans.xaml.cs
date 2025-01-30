@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,8 +28,8 @@ namespace project
 
         private bool addingState = false;
         TextBox BoxFromInPending = null;
-        TextBox BoxToInPending = null;
         StackPanel StackPanelInPending = null;
+        string planName = "";
         public Plans(int userId)
         {
             InitializeComponent();
@@ -67,53 +68,85 @@ namespace project
                             textBlock.FontSize = 20;
                             textBlock.Text = reader["Traning"].ToString();
                             textBlock.Height = 40;
-                            textBlock.Width = 250;
+                            textBlock.Width = 310;
 
-                            //Button SaveTimeBtn = new Button();
-                            //SaveTimeBtn.Width = 65;
-                            //SaveTimeBtn.Click += saveTime;
-                            //SaveTimeBtn.Content = "SaveTime";
                             Button DeleteBtn = new Button();
+                            DeleteBtn.Tag = reader["Id"].ToString();
                             DeleteBtn.Width = 65;
                             DeleteBtn.Content = "Delete";
                             DeleteBtn.Click += DeletePlan;
 
                             newStackPanel.Children.Add(textBlock);
-                            if (!reader.IsDBNull(reader.GetOrdinal("TraningTime")))
-                            {
-                                TextBox textBoxFrom = new TextBox();
-                                this.BoxFromInPending = textBoxFrom;
-                                textBoxFrom.FontSize = 20;
-                                textBoxFrom.Width = 120;
-                                textBoxFrom.Text = reader["TraningTime"].ToString();
-                                newStackPanel.Children.Add(textBoxFrom);
-                                newStackPanel.Children.Add(DeleteBtn);
-                            }
-                            else
-                            {
-                                TextBlock textBlockFrom = new TextBlock();
-                                textBlockFrom.Background = Brushes.LightGray;
-                                textBlockFrom.FontSize = 15;
-                                textBlockFrom.Width = 140;
-                                textBlockFrom.Text = "Tranning date";
+                            TextBlock textBlockFrom = new TextBlock();
+                            textBlockFrom.Background = Brushes.LightGray;
+                            textBlockFrom.FontSize = 20;
+                            textBlockFrom.Width = 140;
+                            textBlockFrom.Text = "Tranning date";
 
-                                TextBox textBoxFrom = new TextBox();
-                                this.BoxFromInPending = textBoxFrom;
-                                textBoxFrom.FontSize = 20;
-                                textBoxFrom.Width = 120;
-                                textBoxFrom.Text = "dd/mm/yyyy";
+                            TextBlock textBoxFrom = new TextBlock();
+                            textBoxFrom.Background = Brushes.LightGray;
+                            textBoxFrom.FontSize = 20;
+                            textBoxFrom.Width = 120;
+                            textBoxFrom.Text = reader["TraningTime"].ToString();
 
-                                newStackPanel.Children.Insert(1, textBlockFrom);
-                                newStackPanel.Children.Insert(2, textBoxFrom);
-                                addTimeRange(newStackPanel);
-                            }
-                            //newStackPanel.Children.Add(SaveTimeBtn);
+                            Button HistoryBtn = new Button();
+                            HistoryBtn.Tag = reader["Id"].ToString();
+                            HistoryBtn.Width = 65;
+                            HistoryBtn.Content = "History";
+                            HistoryBtn.Click += AddToHistory;
+
+                            newStackPanel.Children.Add(textBlockFrom);
+                            newStackPanel.Children.Add(textBoxFrom);
+                            newStackPanel.Children.Add(HistoryBtn);
+                            newStackPanel.Children.Add(DeleteBtn);
                             
                             this.StackPanelInPending = newStackPanel;
                             ContentStackPanel.Children.Insert(0, newStackPanel);
                             
                         }
                     }
+                }
+            }
+        }
+
+        private void AddToHistory(object sender, RoutedEventArgs e)
+        {
+            Button clickedBtn = sender as Button;
+            using (var db = new SQLiteConnection($"Data Source={DBPath}"))
+            {
+                db.Open();
+                string createHistoryTable = @"
+                    CREATE TABLE IF NOT EXISTS History (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        UserId INTEGER NOT NULL,
+                        Traning TEXT NOT NULL,
+                        TraningTime TEXT,
+                        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
+                );";
+                using (var comand = new SQLiteCommand(createHistoryTable, db))
+                {
+                    comand.ExecuteNonQuery();
+                }
+                using (var comand = new SQLiteCommand(@"
+                        INSERT INTO History (UserId, Traning, TraningTime)
+                        SELECT UserId, Traning, TraningTime
+                        FROM UserTranings
+                        WHERE Id = @id;", db))
+                {
+                    comand.Parameters.AddWithValue("id", clickedBtn.Tag);
+                    comand.ExecuteNonQuery();
+                }
+            }
+            StackPanel stackPanel = clickedBtn.Parent as StackPanel;
+            ContentStackPanel.Children.Remove(stackPanel);
+            Console.WriteLine(clickedBtn.Tag);
+            using (var db = new SQLiteConnection($"Data Source={DBPath}"))
+            {
+                db.Open();
+                using (var comand = new SQLiteCommand("DELETE FROM UserTranings WHERE Id = @id", db))
+                {
+                    comand.Parameters.AddWithValue("@id", clickedBtn.Tag);
+                    comand.ExecuteNonQuery();
                 }
             }
         }
@@ -171,7 +204,6 @@ namespace project
                 return;
             }
 
-            this.addingState = false;
             ContentStackPanel.Children.Remove(stackPanel);
 
             StackPanel newStackPanel = new StackPanel();
@@ -182,7 +214,7 @@ namespace project
             textBlock.FontSize = 20;
             textBlock.Text = planName;
             textBlock.Height = 40;
-            textBlock.Width = 250;
+            textBlock.Width = 310;
 
             Button SaveTimeBtn = new Button();
             SaveTimeBtn.Width = 65;
@@ -201,32 +233,8 @@ namespace project
             this.StackPanelInPending = newStackPanel;
 
             ContentStackPanel.Children.Insert(0, newStackPanel);
+            this.planName = planName;
             addTimeRange(newStackPanel);
-            using (var db = new SQLiteConnection($"Data Source={DBPath}"))
-            {
-                db.Open();
-
-                string createUserInfoTable = @"
-                    CREATE TABLE IF NOT EXISTS UserTranings (
-                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        UserId INTEGER NOT NULL,
-                        Traning TEXT NOT NULL,
-                        TraningTime TEXT,
-                        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
-                );";
-
-                using (var comand = new SQLiteCommand(createUserInfoTable, db))
-                {
-                    comand.ExecuteNonQuery();
-                }
-
-                using (var comand = new SQLiteCommand("INSERT INTO UserTranings (UserId, Traning) VALUES (@userId, @traning)", db))
-                {
-                    comand.Parameters.AddWithValue("@userId", this.userId);
-                    comand.Parameters.AddWithValue("@traning", planName);
-                    comand.ExecuteNonQuery();
-                }
-            }
         }
 
         private void addTimeRange(StackPanel newStackPanel)
@@ -249,40 +257,79 @@ namespace project
 
         private void saveTime(object sender, RoutedEventArgs e)
         {
-            TextBlock textBlockFrom = new TextBlock()
+            string time = this.BoxFromInPending.Text;
+            if (DateTime.TryParseExact(time, "dd/MM/yyyy",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out DateTime parsedDate) &&
+                            parsedDate.Date >= DateTime.Today)
             {
-                FontSize = 20,
-                Text = this.BoxFromInPending.Text,
-                Background = Brushes.LightGray
-            };
-
-            this.StackPanelInPending.Children.Remove(this.BoxFromInPending);
-
-            Button saveTimeBtn = this.StackPanelInPending.Children
-                .OfType<Button>()
-                .FirstOrDefault(btn => btn.Content.ToString() == "SaveTime");
-
-            if (saveTimeBtn != null)
-            {
-                this.StackPanelInPending.Children.Remove(saveTimeBtn);
-            }
-
-            this.StackPanelInPending.Children.Insert(2, textBlockFrom);
-
-            using (var connection = new SQLiteConnection($"Data Source={DBPath}"))
-            {
-                connection.Open();
-
-                string updateString = @"UPDATE UserTranings
-                                        SET TraningTime = @date
-                                        WHERE UserId = @userId;";
-
-                using (var command = new SQLiteCommand(updateString, connection))
+                TextBlock textBlockFrom = new TextBlock()
                 {
-                    command.Parameters.AddWithValue("@userId", this.userId);
-                    command.Parameters.AddWithValue("@date", this.BoxFromInPending.Text);
-                    command.ExecuteReader();
+                    Width = 120,
+                    FontSize = 20,
+                    Text = this.BoxFromInPending.Text,
+                    Background = Brushes.LightGray
+                };
+
+                this.StackPanelInPending.Children.Remove(this.BoxFromInPending);
+
+                Button saveTimeBtn = this.StackPanelInPending.Children
+                    .OfType<Button>()
+                    .FirstOrDefault(btn => btn.Content.ToString() == "SaveTime");
+
+                if (saveTimeBtn != null)
+                {
+                    this.StackPanelInPending.Children.Remove(saveTimeBtn);
                 }
+
+                Button HistoryBtn = new Button();
+                HistoryBtn.Width = 65;
+                HistoryBtn.Content = "History";
+                HistoryBtn.Click += AddToHistory;
+
+                this.StackPanelInPending.Children.Insert(2, textBlockFrom);
+
+                using (var db = new SQLiteConnection($"Data Source={DBPath}"))
+                {
+                    db.Open();
+
+                    string createUserInfoTable = @"
+                    CREATE TABLE IF NOT EXISTS UserTranings (
+                        Id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        UserId INTEGER NOT NULL,
+                        Traning TEXT NOT NULL,
+                        TraningTime TEXT,
+                        FOREIGN KEY (UserId) REFERENCES Users(Id) ON DELETE CASCADE
+                );";
+
+                    using (var comand = new SQLiteCommand(createUserInfoTable, db))
+                    {
+                        comand.ExecuteNonQuery();
+                    }
+
+                    using (var comand = new SQLiteCommand("INSERT INTO UserTranings (UserId, Traning, TraningTime) VALUES (@userId, @traning, @time)", db))
+                    {
+                        comand.Parameters.AddWithValue("@userId", this.userId);
+                        comand.Parameters.AddWithValue("@traning", this.planName);
+                        comand.Parameters.AddWithValue("@time", this.BoxFromInPending.Text);
+                        comand.ExecuteNonQuery();
+                    }
+
+                    using (var comand = new SQLiteCommand("SELECT last_insert_rowid();", db))
+                    {
+                        HistoryBtn.Tag = (long)comand.ExecuteScalar();
+                    }
+
+                    this.StackPanelInPending.Children.Insert(3, HistoryBtn);
+                }
+
+                this.addingState = false;
+            }
+            else
+            {
+                MessageBox.Show("Invalid date format");
+                return;
             }
         }
 
@@ -291,6 +338,16 @@ namespace project
             Button clickedBtn = sender as Button;
             StackPanel stackPanel = clickedBtn.Parent as StackPanel;
             ContentStackPanel.Children.Remove(stackPanel);
+            Console.WriteLine(clickedBtn.Tag);
+            using (var db = new SQLiteConnection($"Data Source={DBPath}"))
+            {
+                db.Open();
+                using (var comand = new SQLiteCommand("DELETE FROM UserTranings WHERE Id = @id", db))
+                {
+                    comand.Parameters.AddWithValue("@id", clickedBtn.Tag);
+                    comand.ExecuteNonQuery();
+                }
+            }
         }
 
         private void NavigateTo(object Sender, RoutedEventArgs e)
@@ -302,6 +359,10 @@ namespace project
                 case "addTrainBtn":
                     Plans PlansPage = new Plans(this.userId);
                     NavigationService.Navigate(PlansPage);
+                    break;
+                case "HistoryBtn":
+                    HistoryPage historyPage = new HistoryPage(this.userId);
+                    NavigationService.Navigate(historyPage);
                     break;
                 case "exitBtn":
                     NavigationService.GoBack();

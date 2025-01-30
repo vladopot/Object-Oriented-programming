@@ -28,3 +28,7 @@ C:\Object-Oriented-programming\project\project\obj\Debug\Plans.g.cs
 C:\Object-Oriented-programming\project\project\obj\Debug\Plans.baml
 C:\Object-Oriented-programming\project\project\obj\Debug\DialogWindow.g.cs
 C:\Object-Oriented-programming\project\project\obj\Debug\DialogWindow.baml
+C:\Object-Oriented-programming\project\project\obj\Debug\HistoryPage.g.cs
+C:\Object-Oriented-programming\project\project\obj\Debug\HistoryPage.baml
+C:\Object-Oriented-programming\project\project\obj\Debug\AnalizPage.g.cs
+C:\Object-Oriented-programming\project\project\obj\Debug\AnalizPage.baml

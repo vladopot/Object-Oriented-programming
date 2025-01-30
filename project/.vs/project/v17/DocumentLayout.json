@@ -11,8 +11,20 @@
       "RelativeMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|solutionrelative:project\\profilepage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|c:\\object-oriented-programming\\project\\project\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|C:\\Object-Oriented-programming\\project\\project\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|solutionrelative:project\\profilepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|C:\\Object-Oriented-programming\\project\\project\\analizpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|solutionrelative:project\\analizpage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|c:\\object-oriented-programming\\project\\project\\analizpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|solutionrelative:project\\analizpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|c:\\object-oriented-programming\\project\\project\\historypage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|solutionrelative:project\\historypage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3370D149-3356-4C0D-81BD-76B253AF8892}|project\\project.csproj|C:\\Object-Oriented-programming\\project\\project\\plans.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -26,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,6 +47,44 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HistoryPage.xaml.cs",
+              "DocumentMoniker": "C:\\Object-Oriented-programming\\project\\project\\HistoryPage.xaml.cs",
+              "RelativeDocumentMoniker": "project\\HistoryPage.xaml.cs",
+              "ToolTip": "C:\\Object-Oriented-programming\\project\\project\\HistoryPage.xaml.cs",
+              "RelativeToolTip": "project\\HistoryPage.xaml.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAgwEoAAABJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T16:45:40.607Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AnalizPage.xaml.cs",
+              "DocumentMoniker": "C:\\Object-Oriented-programming\\project\\project\\AnalizPage.xaml.cs",
+              "RelativeDocumentMoniker": "project\\AnalizPage.xaml.cs",
+              "ToolTip": "C:\\Object-Oriented-programming\\project\\project\\AnalizPage.xaml.cs",
+              "RelativeToolTip": "project\\AnalizPage.xaml.cs",
+              "ViewState": "AgIAAHYAAAAAAAAAAAAYwH0AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-30T15:06:28.949Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AnalizPage.xaml",
+              "DocumentMoniker": "C:\\Object-Oriented-programming\\project\\project\\AnalizPage.xaml",
+              "RelativeDocumentMoniker": "project\\AnalizPage.xaml",
+              "ToolTip": "C:\\Object-Oriented-programming\\project\\project\\AnalizPage.xaml",
+              "RelativeToolTip": "project\\AnalizPage.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-01-30T01:31:38.212Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -56,7 +106,7 @@
               "RelativeDocumentMoniker": "project\\ProfilePage.xaml.cs",
               "ToolTip": "C:\\Object-Oriented-programming\\project\\project\\ProfilePage.xaml.cs",
               "RelativeToolTip": "project\\ProfilePage.xaml.cs",
-              "ViewState": "AgIAAEYAAAAAAAAAAAAkwFgAAABCAAAAAAAAAA==",
+              "ViewState": "AgIAADIAAAAAAAAAAAAgwHkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T16:03:25.484Z",
               "EditorCaption": ""
@@ -69,14 +119,14 @@
               "RelativeDocumentMoniker": "project\\Plans.xaml.cs",
               "ToolTip": "C:\\Object-Oriented-programming\\project\\project\\Plans.xaml.cs",
               "RelativeToolTip": "project\\Plans.xaml.cs",
-              "ViewState": "AgIAAFoAAAAAAAAAAADwv2oAAABOAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T01:43:00.815Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "Plans.xaml",
               "DocumentMoniker": "C:\\Object-Oriented-programming\\project\\project\\Plans.xaml",
               "RelativeDocumentMoniker": "project\\Plans.xaml",

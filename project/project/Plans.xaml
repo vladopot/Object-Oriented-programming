@@ -63,9 +63,9 @@
             <ColumnDefinition Width="2*"/>
         </Grid.ColumnDefinitions>
         <StackPanel x:Name="ContentStackPanel" Grid.Column="1" VerticalAlignment="Top">
-            <Button Click="addPlan" Grid.Column="1" Style="{StaticResource BtnStyle}" x:Name="AddPlan" Content="AddPlan" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="60" FontSize="16" Margin="0,0,0,0"></Button>
+            <Button Click="addPlan" Grid.Column="1" Style="{StaticResource BtnStyle}" x:Name="AddPlan" Content="AddTraning" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="60" FontSize="16" Margin="0,0,0,0"></Button>
         </StackPanel>
-        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="AddTrainingBtn" Content="AddTraning" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,60"></Button>
+        <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="HistoryBtn" Content="History" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,60"></Button>
         <Button Click="NavigateTo" Grid.Column="0" Style="{StaticResource BtnStyle}" x:Name="exitBtn" IsCancel="True" Content="Exit" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="60" FontSize="16" Margin="0,0,0,0"></Button>
 
     </Grid>
