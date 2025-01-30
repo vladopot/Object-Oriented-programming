@@ -14,7 +14,7 @@ namespace project
     {
         private double scale = 1.0;
         private int userId { get; set; }
-        private string DBPath = "Users.db";
+        private string DBPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.db");
         public AnalizPage(int userId)
         {
             InitializeComponent();

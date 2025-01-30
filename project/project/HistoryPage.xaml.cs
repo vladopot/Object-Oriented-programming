@@ -23,7 +23,7 @@ namespace project
     public partial class HistoryPage : Page
     {
         private int userId { get; set; }
-        private string DBPath = "Users.db";
+        private string DBPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.db");
         public HistoryPage(int userId)
         {
             InitializeComponent();

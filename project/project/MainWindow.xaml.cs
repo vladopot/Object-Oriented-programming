@@ -23,7 +23,7 @@ namespace project
     public partial class MainWindow : Window
     {
         private int Id { get; set; }
-        private string DBPath = "Users.db";
+        private string DBPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Users.db");
         public MainWindow()
         {
             InitializeComponent();
